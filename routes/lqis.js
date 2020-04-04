@@ -1,21 +1,19 @@
 const router = require('express').Router();
-let Lqi = require('../models/lqi.model');
+let Form = require('../models/form.model');
 
 router.route('/').get((req, res) => {
-    Lqi.find()
-        .then(lqi =>  res.json(lqi))
+    Form.find()
+        .then(coms =>  {
+              let S = coms.length;
+              let sum=0;
+              for(let i =0;i<S;i++){
+                    sum += Number(coms[i].index); 
+              }
+              sum= sum/S;
+            res.json({avg:sum, coms});
+      
+        })
         .catch(err => res.statusCode(400).json('Error: ' + err));
-});
-
-router.route('/add').post((req,res) => {
-    const index = Number(req.body.index);
-    const newLqi = new Lqi({
-        index
-    });
-
-    newLqi.save()
-           .then(() => res.json('Lqi added!'))
-           .catch(err => res.statusCode(400).json('Error: ' + err));
 });
 
 module.exports = router;
