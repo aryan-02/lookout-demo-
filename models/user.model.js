@@ -22,11 +22,11 @@ const userSchema = new Schema({
         minlength: 5
     },
 
-    //date:
-    //{
-    //    type: Date,
-    //    required: true,
-    //}
+    date:
+    {
+        type: Date,
+        required: true,
+    }
 },{
     timestamps: true,
 })
